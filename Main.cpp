@@ -31,23 +31,22 @@ void main() {
 			}
 		}
 
-
 		else if (choice == 2) {
 			Interface matrix;
 			int nMatrix = 0;
 			cout << "Введiть кiлькiсть стовпцiв i рядкiв матрицi(квадратної): ";
 			cin >> nMatrix;
-			int **mainMatrix1 = (int**)malloc(nMatrix * sizeof(int));
+			double **mainMatrix1 = (double**)malloc(nMatrix * sizeof(double));
 
 			cout << "Введiть елементи 1 матрицi:" << endl;
 			for (int i = 0; i < nMatrix; i++)
-				mainMatrix1[i] = (int*)malloc(nMatrix * sizeof(int));
+				mainMatrix1[i] = (double*)malloc(nMatrix * sizeof(double));
 			matrix.InputMatrix(mainMatrix1, nMatrix);
 
 			cout << "Введiть елементи 2 матрицi:" << endl;
-			int **mainMatrix2 = (int**)malloc(nMatrix * sizeof(int));
+			double **mainMatrix2 = (double**)malloc(nMatrix * sizeof(double));
 			for (int i = 0; i < nMatrix; i++)
-				mainMatrix2[i] = (int*)malloc(nMatrix * sizeof(int));
+				mainMatrix2[i] = (double*)malloc(nMatrix * sizeof(double));
 
 			matrix.InputMatrix(mainMatrix2, nMatrix);
 			cout << "A=\t";
@@ -60,9 +59,9 @@ void main() {
 				cout << "Введiть номер дiї яку ви хочете зробити з матрицями:\n[1] - Додавання\n[2] - Вiднiмання\n[3] - Множення\n[4] - Дiлення\n[0] - Вихiд в меню\n";
 				cin >> actionMatrix;
 
-				int **mainMatrix = (int**)malloc(nMatrix * sizeof(int));
+				double **mainMatrix = (double**)malloc(nMatrix * sizeof(double));
 				for (int i = 0; i < nMatrix; i++)
-					mainMatrix[i] = (int*)malloc(nMatrix * sizeof(int));
+					mainMatrix[i] = (double*)malloc(nMatrix * sizeof(int));
 
 				if (actionMatrix == 1) {
 					PlusMatrix(mainMatrix, mainMatrix1, mainMatrix2, nMatrix);
@@ -155,10 +154,5 @@ void main() {
 			free(createdMatrix);
 		}
 		else if(choice!=0)cout << "Некоректне введення!!!\n";
-	}
-
-
-
-
-	
+	}	
 }
