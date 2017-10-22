@@ -61,7 +61,7 @@ void main() {
 
 				double **mainMatrix = (double**)malloc(nMatrix * sizeof(double));
 				for (int i = 0; i < nMatrix; i++)
-					mainMatrix[i] = (double*)malloc(nMatrix * sizeof(int));
+					mainMatrix[i] = (double*)malloc(nMatrix * sizeof(double));
 
 				if (actionMatrix == 1) {
 					PlusMatrix(mainMatrix, mainMatrix1, mainMatrix2, nMatrix);
@@ -95,9 +95,6 @@ void main() {
 				free(mainMatrix2[i]);
 			free(mainMatrix2);
 		}
-
-
-
 
 		else if (choice == 3) {
 			Interface arhivMatrix = "";

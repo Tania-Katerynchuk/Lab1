@@ -21,17 +21,17 @@ public:
 Interface::Interface(string f1) {
 	initialExpression = f1;
 }
-
+//введення виразу
 string Interface::InputExpression() {
 	cout << "Введiть вираз: ";
 	cin >> initialExpression;
 	return initialExpression;
 }
-
+//виведення виразу
 string Interface::OutputExpression() {
 	return initialExpression;
 }
-
+//введення матриці
 void Interface::InputMatrix(double **matrix, int n) {
 	for (int i = 0; i<n; i++) {
 		for (int j = 0; j<n; j++)
@@ -40,7 +40,7 @@ void Interface::InputMatrix(double **matrix, int n) {
 		}
 	}
 }
-
+//виведення матриці
 void Interface::OutputMatrix(double **matrix, int n) {
 	for (int i = 0; i < n; i++) {
 		cout << "|";
@@ -51,7 +51,7 @@ void Interface::OutputMatrix(double **matrix, int n) {
 	}
 	cout << endl;
 }
-
+//виведення матриці архівування
 void Interface::OutputArchivingMatrix(int **matrix, int n) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {

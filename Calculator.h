@@ -36,7 +36,7 @@ public:
 Calculate::Calculate(string f1) {
 	initialExpression = f1;
 }
-
+//розділення виразу на числа і знаки, запис кожного у чергу
 bool Calculate::RightExpression() {
 	for (int i = 0; i < initialExpression.size(); i++) {
 		if (initialExpression[i] >= 48 && initialExpression[i] <= 57) {
@@ -71,14 +71,14 @@ bool Calculate::RightExpression() {
 	}
 	return true;
 }
-
+//перевірка чи число просте
 bool Calculate::ProstoNumber(int n) {
 	for (int i = 2; i <= sqrt(n); i++)
 		if (n % i == 0)
 			return false;
 	return true;
 }
-
+//перевід виразу в польський зворотній запис
 void Calculate::TransferPolishForm() {
 	for (int i = 0; i < 100; i++) {
 		numberMulDiv[i] = 0;
@@ -95,6 +95,7 @@ void Calculate::TransferPolishForm() {
 			expression.pop();
 	}
 }
+//перевірка чи елемент черги число
 void Calculate::VerifyNumber(string element) {
 	if (element[0] >= 48 && element[0] <= 57) {
 		exit.push(element);
@@ -110,6 +111,7 @@ void Calculate::VerifyNumber(string element) {
 		}
 	}
 }
+//перевірка чи елемент черги знак плюс чи мінус
 void Calculate::VerifyPlusMinus(string element) {
 	if (element == "+" || element == "-") {
 		if (numberMulDiv[numberBrackets] > 0) {
@@ -127,7 +129,7 @@ void Calculate::VerifyPlusMinus(string element) {
 		steck.push(element);
 	}
 }
-
+//перевірка чи елемент черги знак множення або віднімання
 void Calculate::VerifyMultiplicationDivision(string element) {
 	if (element == "*" || element == "/") {
 		if (numberMulDiv[numberBrackets] > 0) {
@@ -139,7 +141,7 @@ void Calculate::VerifyMultiplicationDivision(string element) {
 		numberMulDiv[numberBrackets]++;
 	}
 }
-
+//перевірка чи елемент черги дужки
 void Calculate::VerifyBrackets(string element) {
 	if (element == "(") {
 		numberBrackets++;
@@ -164,21 +166,21 @@ void Calculate::VerifyBrackets(string element) {
 		steck.pop();
 	}
 }
-
+//перевірка чи елемент черги знак степінь
 void Calculate::VerifyPower(string element) {
 	if (element == "^") {
 		steck.push(element);
 		numberPow[numberBrackets]++;
 	}
 }
-
+//переміщення всіх елементів з стеку в чергу
 void Calculate::SteckMoveExit() {
 	while (!steck.empty()) {
 		exit.push(steck.top());
 		steck.pop();
 	}
 }
-
+//обчислення польського виразу
 void Calculate::CalculationsPolishForm() {
 	double calculations = 0;
 	cout << "Польський запис виразу: ";

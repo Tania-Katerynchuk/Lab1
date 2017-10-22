@@ -2,8 +2,7 @@
 
 void InputArchivingMatrix(int**, int, int &, int &);
 
-
-
+//рандомне заповнення матриці, 0 стоять вище головної діагоналі на непарних рядкав і нище головної на парних
 void InputArchivingMatrix(int **matrix, int n, int &nLower, int &nUpper) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
@@ -29,6 +28,7 @@ void InputArchivingMatrix(int **matrix, int n, int &nLower, int &nUpper) {
 	}
 }
 
+//перепис двовимірного масива з нульовими елементами в три одновимірних масив без нульових елементів
 void TransferMatrix(int **matrix,int *diagonalMatrix, int *lowerMatrix, int *upperMatrix, int n) {
 	int iUp = 0, iLow=0, iDiagonal=0;
 	for (int i = 0; i < n; i++) {
@@ -49,7 +49,7 @@ void TransferMatrix(int **matrix,int *diagonalMatrix, int *lowerMatrix, int *upp
 	}
 }
 
-
+//перепис три одновимірних масив без нульових елементів в двовимірний масив з нульовими елементами
 void UnzippingMatrix(int **matrix, int *diagonalMatrix, int *lowerMatrix, int *upperMatrix, int n) {
 	int iUp = 0, iLow = 0, iDiagonal = 0;
 	for (int i = 0; i < n; i++) {
