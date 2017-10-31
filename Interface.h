@@ -33,6 +33,7 @@ string Interface::OutputExpression() {
 }
 //введенн€ матриц≥
 void Interface::InputMatrix(double **matrix, int n) {
+	cout << "¬ведiть елементи матрицi:" << endl;
 	for (int i = 0; i<n; i++) {
 		for (int j = 0; j<n; j++)
 		{
@@ -60,5 +61,3 @@ void Interface::OutputArchivingMatrix(int **matrix, int n) {
 		cout << endl;
 	}
 }
-
-

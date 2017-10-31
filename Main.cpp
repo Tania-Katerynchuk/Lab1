@@ -9,24 +9,25 @@ using namespace std;
 
 void main() {
 	setlocale(LC_CTYPE, "ukr");
-	
+
 	Interface expression = "";
 	int choice = 1;
-	bool b = true;
+
 	while (choice != 0) {
 		cout << "[1] - Обчислення виразу з простих числел\n[2] - Дiї з матрицями\n[3] - Архiвування матрицi\n[0] - Вихiд з програми\nВведiть дiю яку ви хочете обрати: ";
 		cin >> choice;
+		bool right = true;
 		if (choice == 1) {
-			while (b) {
+			while (right) {
 				expression.InputExpression();
 				Calculate calculate = expression.OutputExpression();
 				if (calculate.RightExpression()) {
 					calculate.TransferPolishForm();
 					calculate.SteckMoveExit();
 					calculate.CalculationsPolishForm();
-					b = false;
+					right = false;
 				}
-				else b = true;
+				else right = true;
 				cout << endl;
 			}
 		}
@@ -36,17 +37,15 @@ void main() {
 			int nMatrix = 0;
 			cout << "Введiть кiлькiсть стовпцiв i рядкiв матрицi(квадратної): ";
 			cin >> nMatrix;
-			double **mainMatrix1 = (double**)malloc(nMatrix * sizeof(double));
+			double **mainMatrix1 = new double*[nMatrix];
 
-			cout << "Введiть елементи 1 матрицi:" << endl;
 			for (int i = 0; i < nMatrix; i++)
-				mainMatrix1[i] = (double*)malloc(nMatrix * sizeof(double));
+				mainMatrix1[i] = new double[nMatrix];
 			matrix.InputMatrix(mainMatrix1, nMatrix);
 
-			cout << "Введiть елементи 2 матрицi:" << endl;
-			double **mainMatrix2 = (double**)malloc(nMatrix * sizeof(double));
+			double **mainMatrix2 = new double*[nMatrix];
 			for (int i = 0; i < nMatrix; i++)
-				mainMatrix2[i] = (double*)malloc(nMatrix * sizeof(double));
+				mainMatrix2[i] = new double[nMatrix];
 
 			matrix.InputMatrix(mainMatrix2, nMatrix);
 			cout << "A=\t";
@@ -59,29 +58,33 @@ void main() {
 				cout << "Введiть номер дiї яку ви хочете зробити з матрицями:\n[1] - Додавання\n[2] - Вiднiмання\n[3] - Множення\n[4] - Дiлення\n[0] - Вихiд в меню\n";
 				cin >> actionMatrix;
 
-				double **mainMatrix = (double**)malloc(nMatrix * sizeof(double));
+				double **mainMatrix = new double*[nMatrix];
 				for (int i = 0; i < nMatrix; i++)
-					mainMatrix[i] = (double*)malloc(nMatrix * sizeof(double));
-
-				if (actionMatrix == 1) {
+					mainMatrix[i] = new double[nMatrix];
+				switch (actionMatrix) {
+				case 1:
 					PlusMatrix(mainMatrix, mainMatrix1, mainMatrix2, nMatrix);
 					cout << "A+B=\t";
 					matrix.OutputMatrix(mainMatrix, nMatrix);
-				}
-				if (actionMatrix == 2) {
+					break;
+				case 2:
 					MinusMatrix(mainMatrix, mainMatrix1, mainMatrix2, nMatrix);
 					cout << "A-B=\t";
 					matrix.OutputMatrix(mainMatrix, nMatrix);
-				}
-				if (actionMatrix == 3) {
+					break;
+				case 3:
 					MultiplyMatrix(mainMatrix, mainMatrix1, mainMatrix2, nMatrix);
 					cout << "A*B=\t";
 					matrix.OutputMatrix(mainMatrix, nMatrix);
-				}
-				if (actionMatrix == 4) {
+					break;
+				case 4:
 					DivisionMatrix(mainMatrix, mainMatrix1, mainMatrix2, nMatrix);
 					cout << "A/B=\t";
 					matrix.OutputMatrix(mainMatrix, nMatrix);
+					break;
+				default:
+					cout << "Помилка!!!";
+					break;
 				}
 				for (int i = 0; i < nMatrix; i++)
 					free(mainMatrix[i]);
@@ -100,9 +103,9 @@ void main() {
 			Interface arhivMatrix = "";
 			int nArchivingMatrix = 6;
 			cout << "Введiть кількість стовпцiв i рядкiв матрицi: "; cin >> nArchivingMatrix;
-			int **mainArchivingMatrix = (int**)malloc(nArchivingMatrix * sizeof(int));
+			int **mainArchivingMatrix = new int*[nArchivingMatrix];
 			for (int i = 0; i < nArchivingMatrix; i++)
-				mainArchivingMatrix[i] = (int*)malloc(nArchivingMatrix * sizeof(int));
+				mainArchivingMatrix[i] = new int[nArchivingMatrix];
 
 			int nLowerPartMatrix = 0, nUpperPartMatrix = 0;
 
@@ -110,9 +113,9 @@ void main() {
 			InputArchivingMatrix(mainArchivingMatrix, nArchivingMatrix, nLowerPartMatrix, nUpperPartMatrix);
 			arhivMatrix.OutputArchivingMatrix(mainArchivingMatrix, nArchivingMatrix);
 
-			int *lowerPartMatrix = (int*)malloc(nLowerPartMatrix * sizeof(int));
-			int *upperPartMatrix = (int*)malloc(nUpperPartMatrix * sizeof(int));
-			int *diagonalMatrix = (int*)malloc(nArchivingMatrix * sizeof(int));
+			int *lowerPartMatrix = new int[nLowerPartMatrix];
+			int *upperPartMatrix = new int[nUpperPartMatrix];
+			int *diagonalMatrix = new int[nArchivingMatrix];
 
 			TransferMatrix(mainArchivingMatrix, diagonalMatrix, lowerPartMatrix, upperPartMatrix, nArchivingMatrix);
 			cout << "Дiагональ матрицi: ";
@@ -120,11 +123,11 @@ void main() {
 				cout << diagonalMatrix[i] << " ";
 			}
 
-			cout << endl<<"Нижня частина матрицi(ненульовi елементи): ";
-			for (int i = 0; i < nLowerPartMatrix;i++) {
+			cout << endl << "Нижня частина матрицi(ненульовi елементи): ";
+			for (int i = 0; i < nLowerPartMatrix; i++) {
 				cout << lowerPartMatrix[i] << " ";
 			}
-			cout << endl<<"Верхня частина матрицi(ненульовi елементи):: ";
+			cout << endl << "Верхня частина матрицi(ненульовi елементи):: ";
 			for (int i = 0; i < nUpperPartMatrix; i++) {
 				cout << upperPartMatrix[i] << " ";
 			}
@@ -135,14 +138,14 @@ void main() {
 			free(mainArchivingMatrix);
 
 
-			int **createdMatrix = (int**)malloc(nArchivingMatrix * sizeof(int));
+			int **createdMatrix = new int*[nArchivingMatrix];
 			for (int i = 0; i < nArchivingMatrix; i++)
-				createdMatrix[i] = (int*)malloc(nArchivingMatrix * sizeof(int));
+				createdMatrix[i] = new int[nArchivingMatrix];
 			UnzippingMatrix(createdMatrix, diagonalMatrix, lowerPartMatrix, upperPartMatrix, nArchivingMatrix);
 			cout << "Розархiвована матриця: \n";
 			arhivMatrix.OutputArchivingMatrix(createdMatrix, nArchivingMatrix);
 			cout << endl;
-			
+
 			free(diagonalMatrix);
 			free(lowerPartMatrix);
 			free(upperPartMatrix);
@@ -150,6 +153,6 @@ void main() {
 				free(createdMatrix[i]);
 			free(createdMatrix);
 		}
-		else if(choice!=0)cout << "Некоректне введення!!!\n";
-	}	
+		else if (choice != 0)cout << "Некоректне введення!!!\n";
+	}
 }
